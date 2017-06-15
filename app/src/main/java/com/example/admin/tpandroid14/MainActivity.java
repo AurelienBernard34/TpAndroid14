@@ -35,7 +35,11 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        
+        progressBar.setProgress(0);
+        isRunning.set(true);
+        isPausing.set(false);
+        traitement.start();
+
     }
 
         Thread traitement = new Thread(new Runnable() {
@@ -69,17 +73,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onStart() {
             super.onStart();
-            progressBar.setProgress(0);
-            isRunning.set(true);
-            isPausing.set(false);
-            traitement.start();
         }
 
         @Override
         protected void onPause() {
             super.onPause();
             isPausing.set(true);
-            isRunning.set(false);
+        }
+
+        @Override
+        protected void onResume(){
+            super.onResume();
+            isPausing.set(false);
         }
     }
 
